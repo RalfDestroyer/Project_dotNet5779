@@ -19,8 +19,9 @@ namespace BE
         private int _experience;
         private int _maxTests;
         private Configuration.eTypeVechicle _typeVechicle;
-        private bool[,] _timeToWork = new bool[6, 5]; // rows 6 => 9:00-15:00, cells 5=> SUN-THU
+        private bool[,] _timeToWork = new bool[5, 6]; //  5 days => SUN-THU ,  6 hours in day => 9:00-15:00, 
         private int _maxRouge;
+        private int _counterTests = Configuration.MAX_TESTS_IN_WEEK;
         #endregion
 
         #region get&set
@@ -36,6 +37,7 @@ namespace BE
         public int MaxRouge { get => _maxRouge; set => _maxRouge = value; }
         public DateTime BDay { get => _bDay; set => _bDay = value; }
         public Configuration.eTypeVechicle TypeVechicle { get => _typeVechicle; set => _typeVechicle = value; }
+        public int CounterTests { get => _counterTests; set => _counterTests = value; }
         #endregion
 
         //ctor
@@ -43,7 +45,7 @@ namespace BE
         {
             FirstName = firstName;
             LastName = lastName;
-            _bDay = bday;
+            BDay = bday;
             Id = id;
             Sex = sex;
             PhoneNum = phoneNum;
@@ -53,6 +55,7 @@ namespace BE
             TypeVechicle = typeVechicle;
             TimeToWork = new bool[5,6]; // default is false;
             MaxRouge = maxRouge;
+            CounterTests = 0;
         }
 
 

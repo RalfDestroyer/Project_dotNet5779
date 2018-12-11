@@ -12,7 +12,7 @@ namespace BE
         private int _idTest;
         private int _idTester;
         private int _idTrainee;
-        private DateTime _testDate;
+        private DateTime _testDateAsked;
         private DateTime _testDateReal;
         private Adress _start;
         private string _testArgs;
@@ -21,12 +21,12 @@ namespace BE
         #endregion
 
         //ctor
-        public Test(int idTest, int idTester, int idTrainee, DateTime testDate, DateTime testDateReal, Adress start, string testArgs, int grade, string comment)
+        public Test(int idTest, int idTester, int idTrainee, DateTime testDateAsked, DateTime testDateReal, Adress start, string testArgs, int grade, string comment)
         {
             IdTest = idTest;
             IdTester = idTester;
             IdTrainee = idTrainee;
-            TestDate = testDate;
+            TestDateAsked = testDateAsked;
             TestDateReal = testDateReal;
             Start = start;
             TestArgs = testArgs;
@@ -38,7 +38,7 @@ namespace BE
         public int IdTest { get => _idTest; set => _idTest = value; }
         public int IdTester { get => _idTester; set => _idTester = value; }
         public int IdTrainee { get => _idTrainee; set => _idTrainee = value; }
-        public DateTime TestDate { get => _testDate; set => _testDate = value; }
+        public DateTime TestDateAsked { get => _testDateAsked; set => _testDateAsked = value; }
         public DateTime TestDateReal { get => _testDateReal; set => _testDateReal = value; }
         public Adress Start { get => _start; set => _start = value; }
         public string TestArgs { get => _testArgs; set => _testArgs = value; }

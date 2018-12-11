@@ -48,7 +48,7 @@ namespace Project01_7488_dotNet5779
             bl.AddTrainee(traineeRivka);
             
 
-            Test testFirst = new Test(1, 321, 434, new DateTime(2018, 7, 4), new DateTime(2018, 7, 4, 10, 20, 0), new Adress("her", 66, "Sderot"), "blabla", 80, "no");
+            Test testFirst = new Test(1, 321, 434, new DateTime(2018, 7, 4, 10, 20, 0), new DateTime(2018, 7, 4, 10, 20, 0), new Adress("her", 66, "Sderot"), "blabla", 80, "no");
             bl.AddTest(testFirst);
             return;
         }

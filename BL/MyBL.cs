@@ -102,10 +102,16 @@ namespace BL
                 throw new Exception("The testers and trainee type vechicle are not same");
             if ( ((DateTime.Now.Date - trainee.LastTest).TotalDays) < Configuration.MIN_DAYS_BETWEEN_TESTS)
                 throw new Exception("Test can`t be so close to previous");
-
-
+            if (tester.TimeToWork[cell(test.TestDateAsked.DayOfWeek.ToString()), row(test.TestDateAsked.Hour.ToString())] == true )
+                throw new Exception("Test in this day is catched in this Tester"); 
+            // need to give another date for test
+            if (test.TestDateAsked == trainee.LastTest)
+                throw new Exception("Test in this day is catched in this Trainee");
+            if (tester.CounterTests >= Configuration.MAX_TESTS_IN_WEEK)
+                throw new Exception("this tester have a lot of tests, he is busy");
 
             MyDal.AddTest(test);
+            //else need to update tester and treinee
             return;
         }
 
@@ -143,6 +149,35 @@ namespace BL
         private Tester getTester(int id)
         {
             return MyDal.GetTester(id);
+        }
+
+        private int cell (string day)
+        {
+            switch (day)
+            {
+                case "Sunday": return 0;
+                case "Monday": return 1;
+                case "Tuesday": return 2; 
+                case "Wednesday": return 3;
+                case "Thursday": return 4;
+                case "Friday": return 5;
+                case "Saturday": return 6;
+                default: return 7;
+            }
+        }
+        private int row(string time)
+        {
+            switch (time)
+            {
+                case "9": return 0;
+                case "10": return 1;
+                case "11": return 2;
+                case "12": return 3;
+                case "13": return 4;
+                case "14": return 5;
+                case "15": return 6;
+                default: return 7;
+            }
         }
         #endregion
 
