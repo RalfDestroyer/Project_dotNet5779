@@ -8,6 +8,7 @@ namespace BE
 {
     public class Configuration
     {
+        public enum eTypeVechicle { PrivateCar, TwoWheeledVehicle, MediumTrack, HeavyTrack };
         private const int _DAYS_IN_YEAR = 365;
         private const int _MIN_OLD_TESTER = 40;
         private const int _MIN_OLD_TRAINEE = 18;

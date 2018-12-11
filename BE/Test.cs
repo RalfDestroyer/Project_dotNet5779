@@ -45,5 +45,14 @@ namespace BE
         public int Grade { get => _grade; set => _grade = value; }
         public string Comment { get => _comment; set => _comment = value; }
         #endregion
+
+
+        #region Methods
+
+        public override string ToString()
+        {
+            return "Id: " + IdTest + " Id tester: " + IdTester + " Id trainee " + IdTrainee;
+        }
+        #endregion
     }
 }

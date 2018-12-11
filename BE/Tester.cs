@@ -9,7 +9,6 @@ namespace BE
     public class Tester: ICloneable
     {
         public enum eSex { Male, Female };
-        public enum eTypeVechicle { PrivateCar, TwoWheeledVehicle, MediumTrack, HeavyTrack };
 
 
         #region fields
@@ -22,7 +21,7 @@ namespace BE
         private Adress _adress;
         private int _experience;
         private int _maxTests;
-        private eTypeVechicle _typeVechicle;
+        private Configuration.eTypeVechicle _typeVechicle;
         private bool[,] _timeToWork = new bool[6, 5]; // rows 6 => 9:00-15:00, cells 5=> SUN-THU
         private int _maxRouge;
         #endregion
@@ -36,14 +35,14 @@ namespace BE
         public Adress Adress { get => _adress; set => _adress = value; }
         public int Experience { get => _experience; set => _experience = value; }
         public int MaxTests { get => _maxTests; set => _maxTests = value; }
-        public eTypeVechicle TypeVechicle { get => _typeVechicle; set => _typeVechicle = value; }
         public bool[,] TimeToWork { get => _timeToWork; set => _timeToWork = value; }
         public int MaxRouge { get => _maxRouge; set => _maxRouge = value; }
         public DateTime BDay { get => _bDay; set => _bDay = value; }
+        public Configuration.eTypeVechicle TypeVechicle { get => _typeVechicle; set => _typeVechicle = value; }
         #endregion
 
         //ctor
-        public Tester(string firstName, string lastName, int id, DateTime bday, eSex sex, int phoneNum, Adress adress, int experience, int maxTests, eTypeVechicle typeVechicle, int maxRouge)
+        public Tester(string firstName, string lastName, int id, DateTime bday, eSex sex, int phoneNum, Adress adress, int experience, int maxTests, Configuration.eTypeVechicle typeVechicle, int maxRouge)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -69,7 +68,7 @@ namespace BE
 
         public object Clone()
         {
-            return new Tester(_firstName,_lastName,_id, _bDay, _sex,_phoneNum,_adress,_experience,_maxTests,_typeVechicle,_maxRouge);
+            return new Tester(_firstName,_lastName,_id, _bDay, _sex,_phoneNum,_adress,_experience,_maxTests,TypeVechicle,_maxRouge);
         }
         #endregion
     }
