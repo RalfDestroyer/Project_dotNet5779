@@ -65,7 +65,7 @@ namespace BL
         {
             if (((DateTime.Now.Date - trainee.BDay).TotalDays / Configuration.DAYS_IN_YEAR) < Configuration.MIN_OLD_TRAINEE)
                 throw new Exception("The old of tester must to be bigger than 40 years");
-            if (trainee.NLessons < 20)
+            if (trainee.NLessons < Configuration.MIN_COUTN_OF_LESSONS)
                 throw new Exception("The count of lessons too small");
 
             MyDal.AddTrainee(trainee);
@@ -100,6 +100,8 @@ namespace BL
                 throw new Exception("The tester not found");
             if (trainee.TypeVechicle == tester.TypeVechicle)
                 throw new Exception("The testers and trainee type vechicle are not same");
+            if ( ((DateTime.Now.Date - trainee.LastTest).TotalDays) < Configuration.MIN_DAYS_BETWEEN_TESTS)
+                throw new Exception("Test can`t be so close to previous");
 
 
 
