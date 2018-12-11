@@ -8,15 +8,12 @@ namespace BE
 {
     public class Tester: ICloneable
     {
-        public enum eSex { Male, Female };
-
-
         #region fields
         private string _firstName;
         private string _lastName;
         private int _id;
         DateTime _bDay;
-        private eSex _sex;
+        private Configuration.eSex _sex;
         private int _phoneNum;
         private Adress _adress;
         private int _experience;
@@ -30,7 +27,7 @@ namespace BE
         public string FirstName { get => _firstName; set => _firstName = value; }
         public string LastName { get => _lastName; set => _lastName = value; }
         public int Id { get => _id; set => _id = value; }
-        public eSex Sex { get => _sex; set => _sex = value; }
+        public Configuration.eSex Sex { get => _sex; set => _sex = value; }
         public int PhoneNum { get => _phoneNum; set => _phoneNum = value; }
         public Adress Adress { get => _adress; set => _adress = value; }
         public int Experience { get => _experience; set => _experience = value; }
@@ -42,7 +39,7 @@ namespace BE
         #endregion
 
         //ctor
-        public Tester(string firstName, string lastName, int id, DateTime bday, eSex sex, int phoneNum, Adress adress, int experience, int maxTests, Configuration.eTypeVechicle typeVechicle, int maxRouge)
+        public Tester(string firstName, string lastName, int id, DateTime bday, Configuration.eSex sex, int phoneNum, Adress adress, int experience, int maxTests, Configuration.eTypeVechicle typeVechicle, int maxRouge)
         {
             FirstName = firstName;
             LastName = lastName;

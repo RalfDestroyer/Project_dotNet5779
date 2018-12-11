@@ -8,7 +8,6 @@ namespace BE
 {
     public class Trainee
     {
-        public enum eSex { Male, Female };
         public enum eGearBox { Manual, Automatic }
 
         #region fields
@@ -16,7 +15,7 @@ namespace BE
         string _lastName;
         int _id;
         DateTime _bDay;
-        eSex _sex;
+        Configuration.eSex _sex;
         int _phoneNum;
         Adress _adress;
         Configuration.eTypeVechicle _typeVechicle;
@@ -28,7 +27,7 @@ namespace BE
         #endregion
 
         #region ctors
-        public Trainee(string firstName, string lastName, int id, DateTime bDay, eSex sex, int phoneNum, Adress adress, Configuration.eTypeVechicle typeVechicle, eGearBox gearBox, string schoolName, string teacherName, int nLessons)
+        public Trainee(string firstName, string lastName, int id, DateTime bDay, Configuration.eSex sex, int phoneNum, Adress adress, Configuration.eTypeVechicle typeVechicle, eGearBox gearBox, string schoolName, string teacherName, int nLessons)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -45,7 +44,7 @@ namespace BE
         }
 
         // with last test
-        public Trainee(string firstName, string lastName, int id, DateTime bDay, eSex sex, int phoneNum, Adress adress, Configuration.eTypeVechicle typeVechicle, eGearBox gearBox, string schoolName, string teacherName, int nLessons, DateTime lastTest)
+        public Trainee(string firstName, string lastName, int id, DateTime bDay, Configuration.eSex sex, int phoneNum, Adress adress, Configuration.eTypeVechicle typeVechicle, eGearBox gearBox, string schoolName, string teacherName, int nLessons, DateTime lastTest)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -67,7 +66,7 @@ namespace BE
         public string FirstName { get => _firstName; set => _firstName = value; }
         public string LastName { get => _lastName; set => _lastName = value; }
         public DateTime BDay { get => _bDay; set => _bDay = value; }
-        public eSex Sex { get => _sex; set => _sex = value; }
+        public Configuration.eSex Sex { get => _sex; set => _sex = value; }
         public int PhoneNum { get => _phoneNum; set => _phoneNum = value; }
         public Adress Adress { get => _adress; set => _adress = value; }
         public eGearBox GearBox { get => _gearBox; set => _gearBox = value; }
