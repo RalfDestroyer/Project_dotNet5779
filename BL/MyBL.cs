@@ -90,7 +90,14 @@ namespace BL
         #region Test
         public void AddTest(Test test)
         {
-            //
+            if(getTreinee(test.IdTrainee) == null)
+                throw new Exception("The trainee not found");
+            if (getTester(test.IdTester) == null)
+                throw new Exception("The tester not found");
+
+
+            MyDal.AddTest(test);
+            return;
         }
 
         public void RemoveTest(Test test)
@@ -118,6 +125,15 @@ namespace BL
         public BindingList<Test> getTestList()
         {
             return MyDal.GetTestsList();
+        }
+
+        private Trainee getTreinee(int id)
+        {
+            return MyDal.GetTrainee(id);
+        }
+        private Tester getTester(int id)
+        {
+            return MyDal.GetTester(id);
         }
         #endregion
 

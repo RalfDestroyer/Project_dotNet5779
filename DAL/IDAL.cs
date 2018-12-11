@@ -29,6 +29,8 @@ namespace DAL
         BindingList<Tester> GetTestersList();
         BindingList<Trainee> GetTraineesList();
         BindingList<Test> GetTestsList();
+        Trainee GetTrainee(int id);
+        Tester GetTester(int id);
         #endregion
     }
 }

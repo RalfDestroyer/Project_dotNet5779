@@ -46,10 +46,11 @@ namespace Project01_7488_dotNet5779
             Trainee traineeRivka = new Trainee("rivka", "Afaglo", 4464, new DateTime(1984, 4, 20), Trainee.eSex.Female, 057884547, new Adress("her", 66, "Sderot"), Trainee.eTypeVechicle.MediumTrack, Trainee.eGearBox.Manual, "heyhey drive", "Moshe", 8);
             bl.AddTrainee(traineeAvraham);
             bl.AddTrainee(traineeRivka);
+            
+
+            Test testFirst = new Test(1, 321, 434, new DateTime(2018, 7, 4), new DateTime(2018, 7, 4, 10, 20, 0), new Adress("her", 66, "Sderot"), "blabla", 80, "no");
+            bl.AddTest(testFirst);
             return;
-
-
-
 
 
         }
@@ -58,7 +59,8 @@ namespace Project01_7488_dotNet5779
         private void LoadNannyListOnWindow()
         {
             //listView.DataContext = bl.getTesterList();
-            listView.DataContext = bl.getTraineeList();
+            //listView.DataContext = bl.getTraineeList();
+            listView.DataContext = bl.getTestList();
 
         }
     }

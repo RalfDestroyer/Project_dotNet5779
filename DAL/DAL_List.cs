@@ -98,6 +98,15 @@ namespace DAL
         {
             throw new NotImplementedException();
         }
+
+        public Trainee GetTrainee(int id)
+        {
+            return DataSource.traineesList.ToList().Find(stud => stud.Id == id);
+        }
+        public Tester GetTester(int id)
+        {
+            return DataSource.testersList.ToList().Find(tester => tester.Id == id);
+        }
         #endregion
     }
 }
