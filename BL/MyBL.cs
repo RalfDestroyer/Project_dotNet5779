@@ -12,6 +12,8 @@ namespace BL
 {
     public class MyBL: IBL
     {
+        public event EventHandler<ErrorsEventArgs> error;
+
         #region Singleton
         private static readonly MyBL instance = new MyBL();
 
@@ -33,10 +35,9 @@ namespace BL
         #region Tester
         public void AddTester(Tester tester)
         {
-            if (logicTester(tester) != true)
-                throw new Exception("ERROR");
+            if (logicTester(tester) == true)
+                MyDal.AddTester(tester);
 
-            MyDal.AddTester(tester);
             return;
         }
 
@@ -48,10 +49,9 @@ namespace BL
 
         public void UpdateTester(Tester tester)
         {
-            if (logicTester(tester) != true)
-                throw new Exception("ERROR");
-            else
+            if (logicTester(tester) == true)
                 MyDal.UpdateTester(tester);
+
             return;
         }
         #endregion
@@ -59,10 +59,9 @@ namespace BL
         #region Trainee
         public void AddTrainee(Trainee trainee)
         {
-            if (logicTrainee(trainee) != true)
-                throw new Exception("ERROR");
+            if (logicTrainee(trainee) == true)
+                MyDal.AddTrainee(trainee);
 
-            MyDal.AddTrainee(trainee);
             return;
         }
 
@@ -74,10 +73,9 @@ namespace BL
 
         public void UpdateTrainee(Trainee trainee)
         {
-            if (logicTrainee(trainee) != true)
-                throw new Exception("ERROR");
-            else
+            if (logicTrainee(trainee) == true)
                 MyDal.UpdateTrainee(trainee);
+            
             return;
         }
         #endregion
@@ -85,11 +83,9 @@ namespace BL
         #region Test
         public void AddTest(Test test)
         {
-            if (logicTest(test) != true)
-                throw new Exception("ERROR");
+            if (logicTest(test) == true)
+                MyDal.AddTest(test);
 
-            MyDal.AddTest(test);
-            
 
             //else need to update tester and treinee
             return;
@@ -103,10 +99,9 @@ namespace BL
 
         public void UpdateTest(Test test)
         {
-            if (logicTest(test) != true)
-                throw new Exception("ERROR");
-            else
+            if (logicTest(test) == true)
                 MyDal.UpdateTest(test);
+          
             return;
         }
         #endregion
@@ -215,47 +210,71 @@ namespace BL
             Trainee trainee = getTreinee(test.IdTrainee);
 
             if (tester == null)
-                throw new Exception("The trainee not found");
+            {
+                error(this, new ErrorsEventArgs("The trainee not found"));
+                return false;
+            }
             if (trainee == null)
-                throw new Exception("The tester not found");
+            {
+                error(this, new ErrorsEventArgs("The tester not found"));
+                return false;
+            }
 
-            if (trainee.TypeVechicle != tester.TypeVechicle)
-                throw new Exception("The testers and trainee type vechicle are not same");
-
+            if (trainee.TypeVechicle != tester.TypeVechicle) { 
+                error(this, new ErrorsEventArgs("The testers and trainee type vechicle are not same"));
+                return false;
+            }
             if (((DateTime.Now.Date - trainee.LastTest).TotalDays) < Configuration.MIN_DAYS_BETWEEN_TESTS)
-                throw new Exception("Test can`t be so close to previous");
-
+            {
+                error(this, new ErrorsEventArgs("Test can`t be so close to previous"));
+                return false;
+            }
             if (tester.TimeToWork[cell(test.TestDateAsked.DayOfWeek.ToString()), row(test.TestDateAsked.Hour.ToString())] == true)
-                throw new Exception("Test in this day is catched in this Tester");
-
+            { 
+                error(this, new ErrorsEventArgs("Test in this day is catched in this Tester"));
+                return false;
+            }
             if (trainee.LastTest == test.TestDateAsked)
-                throw new Exception("Trainee have test in this time already");
-
-            // need to give another date for test
+            { 
+                error(this, new ErrorsEventArgs("Trainee have test in this time already"));
+                return false;
+            }
             if (test.TestDateAsked == trainee.LastTest)
-                throw new Exception("Test in this day is catched in this Trainee");
-
+            { 
+                error(this, new ErrorsEventArgs("Test in this day is catched in this Trainee"));
+                return false;
+            }
             if (tester.CounterTests >= Configuration.MAX_TESTS_IN_WEEK)
-                throw new Exception("this tester have a lot of tests, he is busy");
-
-            if (MyDal.GetTestsList().ToList().Exists(stud => ((stud.IdTrainee == trainee.Id) && (stud.TypeVechicle == trainee.TypeVechicle))))
-                throw new Exception("Trainee finish this test before");
+            {
+                error(this, new ErrorsEventArgs("this tester have a lot of tests, he is busy"));
+                return false;
+            }
+            if (MyDal.GetTestsList().ToList().Exists(stud => ((stud.IdTrainee == trainee.Id) && (stud.TypeVechicle == trainee.TypeVechicle)))) { 
+                error(this, new ErrorsEventArgs("Trainee finish this test before"));
+                return false;
+            }
 
             return true;
         }
         private bool logicTrainee(Trainee trainee)
         {
-            if (((DateTime.Now.Date - trainee.BDay).TotalDays / Configuration.DAYS_IN_YEAR) < Configuration.MIN_OLD_TRAINEE)
-                throw new Exception("The old of tester must to be bigger than 40 years");
-            if (trainee.NLessons < Configuration.MIN_COUTN_OF_LESSONS)
-                throw new Exception("The count of lessons too small");
+            if (((DateTime.Now.Date - trainee.BDay).TotalDays / Configuration.DAYS_IN_YEAR) < Configuration.MIN_OLD_TRAINEE) { 
+                error(this, new ErrorsEventArgs("The old of tester must to be bigger than 40 years"));
+                return false;
+            }
+            if (trainee.NLessons < Configuration.MIN_COUTN_OF_LESSONS) { 
+                error(this, new ErrorsEventArgs("The count of lessons too small"));
+                return false;
+            }
 
             return true;
         }
         private bool logicTester(Tester tester)
         {
-            if (((DateTime.Now.Date - tester.BDay).TotalDays / Configuration.DAYS_IN_YEAR) < Configuration.MIN_OLD_TESTER)
-                throw new Exception("The old of tester must to be bigger than 40 years");
+            if (((DateTime.Now.Date - tester.BDay).TotalDays / Configuration.DAYS_IN_YEAR) < Configuration.MIN_OLD_TESTER) { 
+                error(this, new ErrorsEventArgs("The old of tester must to be bigger than 40 years"));
+                return false;
+            }
 
             return true;
         }
