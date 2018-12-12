@@ -11,6 +11,7 @@ namespace DAL
 {
     public class DAL_List: IDAL
     {
+
         #region Singleton
         private static readonly DAL_List instance = new DAL_List();
 
@@ -30,27 +31,28 @@ namespace DAL
         public void AddTest(Test addingTest)
         {
             if (!(DataSource.testsList.ToList().Exists(testInList => testInList.IdTest == addingTest.IdTest)))
-            {
                 DataSource.testsList.Add(addingTest);
-            }
+            else
+                throw new Exception("The test in this id alredy exists");
             return;
         }
 
         public void AddTester(Tester addingTester)
         {
             if (!(DataSource.testersList.ToList().Exists(testersInList => testersInList.Id == addingTester.Id)))
-            {
                 DataSource.testersList.Add(addingTester);
-            }
+            else
+                throw new Exception("The tester in this id alredy exists");
             return;
         }
 
         public void AddTrainee(Trainee addingTrainee)
         {
             if (!(DataSource.traineesList.ToList().Exists(traineeInList => traineeInList.Id == addingTrainee.Id)))
-            {
                 DataSource.traineesList.Add(addingTrainee);
-            }
+            else
+                throw new Exception("The trainee in this id alredy exists");
+
             return;
         }
 

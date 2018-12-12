@@ -29,34 +29,44 @@ namespace Project01_7488_dotNet5779
         {
             InitializeComponent();
             bl = MyBL.Instance;
-            bl.error += new EventHandler<ErrorsEventArgs>(ErrorMessageBox);
             CreateDemoEntites();
             LoadListsOnWindow();
         }
 
         private void CreateDemoEntites()
         {
-            Tester testerYossi = new Tester("Yossi", "abutbul", 123, new DateTime(1964, 10, 12), Configuration.eSex.Male, 050939393, new Adress("Avraham", 65, "Jesusalem"), 21, 4, Configuration.eTypeVechicle.PrivateCar, 31);
-            Tester testerMoshe = new Tester("Moshe", "satbul", 321, new DateTime(1974, 12, 10), Configuration.eSex.Male, 050943493, new Adress("Moshe Boshe", 15, "Jesusalem"), 24, 1, Configuration.eTypeVechicle.MediumTrack, 11);
-            Tester testerYakov = new Tester("Yakov", "dsabul", 341, new DateTime(1994, 12, 10), Configuration.eSex.Male, 050943493, new Adress("Moshe Boshe", 15, "Jesusalem"), 24, 1, Configuration.eTypeVechicle.MediumTrack, 11);
-            bl.AddTester(testerMoshe);
-            bl.AddTester(testerYossi);
-            bl.AddTester(testerYakov);
+            try
+            {
+                Tester testerYossi = new Tester("Yossi", "abutbul", 123, new DateTime(1964, 10, 12), Configuration.eSex.Male, 050939393, new Adress("Avraham", 65, "Jesusalem"), 21, 4, Configuration.eTypeVechicle.PrivateCar, 31);
+                Tester testerMoshe = new Tester("Moshe", "satbul", 321, new DateTime(1974, 12, 10), Configuration.eSex.Male, 050943493, new Adress("Moshe Boshe", 15, "Jesusalem"), 24, 1, Configuration.eTypeVechicle.MediumTrack, 11);
+                Tester testerYakov = new Tester("Yakov", "dsabul", 341, new DateTime(1994, 12, 10), Configuration.eSex.Male, 050943493, new Adress("Moshe Boshe", 15, "Jesusalem"), 24, 1, Configuration.eTypeVechicle.MediumTrack, 11);
+                bl.AddTester(testerMoshe);
+                bl.AddTester(testerYossi);
+                bl.AddTester(testerYakov);
 
 
-            Trainee traineeAvraham = new Trainee("Avraham", "Buzaglo", 434, new DateTime(1994, 7, 10), Configuration.eSex.Male, 0578847, new Adress("her", 76, "Ashkelon"), Configuration.eTypeVechicle.MediumTrack, Trainee.eGearBox.Manual, "heyhey drive", "Moshe", 25);
-            Trainee traineeRivka = new Trainee("rivka", "Afaglo", 4464, new DateTime(1984, 4, 20), Configuration.eSex.Female, 057884547, new Adress("her", 66, "Sderot"), Configuration.eTypeVechicle.MediumTrack, Trainee.eGearBox.Manual, "heyhey drive", "Moshe", 21);
-            bl.AddTrainee(traineeAvraham);
-            bl.AddTrainee(traineeRivka);
+                Trainee traineeAvraham = new Trainee("Avraham", "Buzaglo", 434, new DateTime(1994, 7, 10), Configuration.eSex.Male, 0578847, new Adress("her", 76, "Ashkelon"), Configuration.eTypeVechicle.MediumTrack, Trainee.eGearBox.Manual, "heyhey drive", "Moshe", 25);
+                Trainee traineeRivka = new Trainee("rivka", "Afaglo", 4464, new DateTime(1984, 4, 20), Configuration.eSex.Female, 057884547, new Adress("her", 66, "Sderot"), Configuration.eTypeVechicle.MediumTrack, Trainee.eGearBox.Manual, "heyhey drive", "Moshe", 21);
+                bl.AddTrainee(traineeAvraham);
+                bl.AddTrainee(traineeRivka);
 
-            List<TestArgs> lst = new List<TestArgs>();
-            lst.Add(new TestArgs(true, "bla"));
-            lst.Add(new TestArgs(false, "bla"));
-            lst.Add(new TestArgs(true, "bla"));
+                List<TestArgs> lst = new List<TestArgs>();
+                lst.Add(new TestArgs(true, "bla"));
+                lst.Add(new TestArgs(false, "bla"));
+                lst.Add(new TestArgs(true, "bla"));
 
-            Test testFirst = new Test(1, 321, 434, new DateTime(2018, 7, 4, 10, 20, 0), new DateTime(2018, 7, 4, 10, 20, 0), new Adress("her", 66, "Sderot"), Configuration.eTypeVechicle.PrivateCar, true, lst, "blabla");
-            bl.AddTest(testFirst);
-            bl.AddTest(testFirst);
+                Test testFirst = new Test(1, 321, 434, new DateTime(2018, 7, 4, 10, 20, 0), new DateTime(2018, 7, 4, 10, 20, 0), new Adress("her", 66, "Sderot"), Configuration.eTypeVechicle.PrivateCar, true, lst, "blabla");
+                bl.AddTest(testFirst);
+                bl.AddTest(testFirst);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Check your input and try again");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(DateTime.Now.ToString() + " " + ex.Message, "Error");
+            }
             return;
         }
 
@@ -68,10 +78,5 @@ namespace Project01_7488_dotNet5779
             listViewTest.DataContext = bl.getTestList();
         }
 
-        private void ErrorMessageBox(object sender, ErrorsEventArgs e)
-        {
-            MessageBox.Show(DateTime.Now.ToString() + " " + e.message, "Error");
-            return;
-        }
     }
 }
