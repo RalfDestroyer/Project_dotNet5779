@@ -24,7 +24,6 @@ namespace BE
         string _teacherName;
         int _nLessons;
         DateTime _lastTest;
-        string[] _testComplete;
         #endregion
 
         #region ctors
@@ -63,7 +62,7 @@ namespace BE
         }
         #endregion
 
-        #region Methods
+        #region Property&Methods
         public string FirstName { get => _firstName; set => _firstName = value; }
         public string LastName { get => _lastName; set => _lastName = value; }
         public DateTime BDay { get => _bDay; set => _bDay = value; }
