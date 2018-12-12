@@ -24,6 +24,7 @@ namespace BE
         string _teacherName;
         int _nLessons;
         DateTime _lastTest;
+        string[] _testComplete;
         #endregion
 
         #region ctors
@@ -41,6 +42,7 @@ namespace BE
             SchoolName = schoolName;
             TeacherName = teacherName;
             NLessons = nLessons;
+            TestComplete = new string[Configuration.SUM_OF_eTypeVechicle];
         }
 
         // with last test
@@ -59,6 +61,7 @@ namespace BE
             TeacherName = teacherName;
             NLessons = nLessons;
             LastTest = lastTest;
+            TestComplete = new string[Configuration.SUM_OF_eTypeVechicle];
         }
         #endregion
 
@@ -76,6 +79,7 @@ namespace BE
         public int Id { get => _id; set => _id = value; }
         public DateTime LastTest { get => _lastTest; set => _lastTest = value; }
         public Configuration.eTypeVechicle TypeVechicle { get => _typeVechicle; set => _typeVechicle = value; }
+        public string[] TestComplete { get => _testComplete; set => _testComplete = value; }
 
         public override string ToString()
         {

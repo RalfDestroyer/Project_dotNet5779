@@ -15,13 +15,12 @@ namespace BE
         private DateTime _testDateAsked;
         private DateTime _testDateReal;
         private Adress _start;
-        private string _testArgs;
-        private int _grade;
+        private List<TestArgs> _testArgs;
+        private bool? _grade;
         private string _comment;
-        #endregion
+        private Configuration.eTypeVechicle _typeVechicle;
 
-        //ctor
-        public Test(int idTest, int idTester, int idTrainee, DateTime testDateAsked, DateTime testDateReal, Adress start, string testArgs, int grade, string comment)
+        public Test(int idTest, int idTester, int idTrainee, DateTime testDateAsked, DateTime testDateReal, Adress start, Configuration.eTypeVechicle typeVechicle, bool? grade, List<TestArgs> testArgs, string comment)
         {
             IdTest = idTest;
             IdTester = idTester;
@@ -29,10 +28,16 @@ namespace BE
             TestDateAsked = testDateAsked;
             TestDateReal = testDateReal;
             Start = start;
-            TestArgs = testArgs;
+            TypeVechicle = typeVechicle;
             Grade = grade;
+            TestArgs = testArgs;
             Comment = comment;
         }
+
+        #endregion
+
+        //ctor
+
 
         #region get&set
         public int IdTest { get => _idTest; set => _idTest = value; }
@@ -41,9 +46,10 @@ namespace BE
         public DateTime TestDateAsked { get => _testDateAsked; set => _testDateAsked = value; }
         public DateTime TestDateReal { get => _testDateReal; set => _testDateReal = value; }
         public Adress Start { get => _start; set => _start = value; }
-        public string TestArgs { get => _testArgs; set => _testArgs = value; }
-        public int Grade { get => _grade; set => _grade = value; }
         public string Comment { get => _comment; set => _comment = value; }
+        public Configuration.eTypeVechicle TypeVechicle { get => _typeVechicle; set => _typeVechicle = value; }
+        public bool? Grade { get => _grade; set => _grade = value; }
+        public List<TestArgs> TestArgs { get => _testArgs; set => _testArgs = value; }
         #endregion
 
 

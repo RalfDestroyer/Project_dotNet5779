@@ -21,7 +21,6 @@ namespace BL
         }
         #endregion
 
-
         #region MyDAL = DAL in fact!
         static IDAL MyDal;
 
@@ -30,7 +29,6 @@ namespace BL
             MyDal = DAL_List.Instance;
         }
         #endregion
-
 
         #region Tester
         public void AddTester(Tester tester)
@@ -98,20 +96,36 @@ namespace BL
                 throw new Exception("The trainee not found");
             if (trainee == null)
                 throw new Exception("The tester not found");
-            if (trainee.TypeVechicle == tester.TypeVechicle)
+
+            if (trainee.TypeVechicle != tester.TypeVechicle)
                 throw new Exception("The testers and trainee type vechicle are not same");
+
             if ( ((DateTime.Now.Date - trainee.LastTest).TotalDays) < Configuration.MIN_DAYS_BETWEEN_TESTS)
                 throw new Exception("Test can`t be so close to previous");
+
             if (tester.TimeToWork[cell(test.TestDateAsked.DayOfWeek.ToString()), row(test.TestDateAsked.Hour.ToString())] == true )
                 throw new Exception("Test in this day is catched in this Tester"); 
+
+            if (trainee.LastTest == test.TestDateAsked)
+                throw new Exception("Trainee have test in this time already");
+
             // need to give another date for test
             if (test.TestDateAsked == trainee.LastTest)
                 throw new Exception("Test in this day is catched in this Trainee");
+
             if (tester.CounterTests >= Configuration.MAX_TESTS_IN_WEEK)
                 throw new Exception("this tester have a lot of tests, he is busy");
 
+            if (MyDal.GetTestsList().ToList().Exists(stud => ((stud.IdTrainee == trainee.Id) && (stud.TypeVechicle == trainee.TypeVechicle))))
+                throw new Exception("Trainee finish this test before");
+
+
             MyDal.AddTest(test);
             //else need to update tester and treinee
+
+
+
+
             return;
         }
 
@@ -181,6 +195,54 @@ namespace BL
         }
         #endregion
 
+        #region METHODS
+        public BindingList<Tester> getTesterListInXRouge(Adress adress)
+        {
+            Random randRouge = new Random();
+            int rouge = randRouge.Next();
+            return new BindingList<Tester>(MyDal.GetTestersList().ToList().FindAll(tstr => tstr.MaxRouge == rouge));
+        }
+
+        public BindingList<Tester> getTesterListFreeInDate(DateTime dateTime)
+        {
+            return new BindingList<Tester>(MyDal.GetTestersList().ToList().FindAll
+                (tstr => tstr.TimeToWork[cell(dateTime.DayOfWeek.ToString()),row(dateTime.Hour.ToString())] == false));
+        }
+        public BindingList<Test> getTesterListInMonth(DateTime dateTime)
+        {
+            return new BindingList<Test>(MyDal.GetTestsList().ToList().FindAll
+                (tst => tst.TestDateReal.Month == dateTime.Month));
+        }
+        public BindingList<Test> getTesterListInDay(DateTime dateTime)
+        {
+            return new BindingList<Test>(MyDal.GetTestsList().ToList().FindAll
+                (tst => tst.TestDateReal.Day == dateTime.Day));
+        }
+        public bool acceptDrivingLicence(Trainee trainee)
+        {
+            return MyDal.GetTestsList().ToList().Exists(tst => ((tst.Grade == true) && (tst.TypeVechicle == trainee.TypeVechicle)));
+        }
+        public int sumOfTests(Trainee trainee)
+        {
+            BindingList<Test> list = new BindingList<Test>(MyDal.GetTestsList().ToList().FindAll(tst => tst.IdTrainee == trainee.Id));
+            return list.Count;
+        }
+        public bool mostArgsTrue(Test test)
+        {
+            int couterTrue = 0, counterFalse = 0;
+            foreach (var item in test.TestArgs)
+            {
+                if (item.Pass == true)
+                    couterTrue++;
+                else
+                    counterFalse++;
+            }
+            if (couterTrue > counterFalse)
+                return true;
+            else
+                return false;
+        }
+        #endregion
     }
 
 }

@@ -42,13 +42,17 @@ namespace Project01_7488_dotNet5779
             bl.AddTester(testerYossi);
             
 
-            Trainee traineeAvraham = new Trainee("Avraham", "Buzaglo", 434, new DateTime(1994, 7, 10), Configuration.eSex.Male, 0578847, new Adress("her", 76, "Ashkelon"), Configuration.eTypeVechicle.TwoWheeledVehicle, Trainee.eGearBox.Manual, "heyhey drive", "Moshe", 25);
+            Trainee traineeAvraham = new Trainee("Avraham", "Buzaglo", 434, new DateTime(1994, 7, 10), Configuration.eSex.Male, 0578847, new Adress("her", 76, "Ashkelon"), Configuration.eTypeVechicle.MediumTrack, Trainee.eGearBox.Manual, "heyhey drive", "Moshe", 25);
             Trainee traineeRivka = new Trainee("rivka", "Afaglo", 4464, new DateTime(1984, 4, 20), Configuration.eSex.Female, 057884547, new Adress("her", 66, "Sderot"), Configuration.eTypeVechicle.MediumTrack, Trainee.eGearBox.Manual, "heyhey drive", "Moshe", 21);
             bl.AddTrainee(traineeAvraham);
             bl.AddTrainee(traineeRivka);
-            
 
-            Test testFirst = new Test(1, 321, 434, new DateTime(2018, 7, 4, 10, 20, 0), new DateTime(2018, 7, 4, 10, 20, 0), new Adress("her", 66, "Sderot"), "blabla", 80, "no");
+            List<TestArgs> lst = new List<TestArgs>();
+            lst.Add(new TestArgs(true, "bla"));
+            lst.Add(new TestArgs(false, "bla"));
+            lst.Add(new TestArgs(true, "bla"));
+
+            Test testFirst = new Test(1, 321, 434, new DateTime(2018, 7, 4, 10, 20, 0), new DateTime(2018, 7, 4, 10, 20, 0), new Adress("her", 66, "Sderot"), Configuration.eTypeVechicle.PrivateCar, true, lst, "blabla");
             bl.AddTest(testFirst);
             return;
         }
