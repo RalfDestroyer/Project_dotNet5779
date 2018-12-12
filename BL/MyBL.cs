@@ -117,7 +117,15 @@ namespace BL
         {
             return MyDal.GetTestsList();
         }
-        private Trainee getTreinee(int id)
+        public BindingList<Test> getTestListByPredicate(Func<Test, bool> Predicate = null)
+        {
+            if (Predicate == null)
+                return MyDal.GetTestsList();
+
+            return MyDal.GetTestsList(Predicate);
+        }
+
+    private Trainee getTreinee(int id)
         {
             return MyDal.GetTrainee(id);
         }
@@ -272,6 +280,8 @@ namespace BL
 
             return true;
         }
+
+        
         #endregion
     }
 

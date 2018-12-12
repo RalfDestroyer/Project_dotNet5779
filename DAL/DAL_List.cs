@@ -61,9 +61,23 @@ namespace DAL
             return new BindingList<Tester>(DataSource.testersList);
         }
 
-        public BindingList<Test> GetTestsList()
+        public BindingList<Test> GetTestsList(Func<Test, bool> Predicate = null)
         {
-            return new BindingList<Test>(DataSource.testsList);
+            //return new BindingList<Test>(DataSource.testsList);
+            if (Predicate == null)
+                return new BindingList<Test>(DataSource.testsList);
+
+            Predicate<Test> _predicate = new Predicate<Test>(Predicate);
+            return new BindingList<Test>(DataSource.testsList.FindAll(_predicate));
+        }
+
+        public BindingList<Test> GetTestsListByPredicate(Func<Test, bool> Predicate = null)
+        {
+            if (Predicate == null)
+                return new BindingList<Test>(DataSource.testsList);
+
+            Predicate<Test> _predicate = new Predicate<Test>(Predicate); 
+            return new BindingList<Test>(DataSource.testsList.FindAll(_predicate));
         }
 
         public BindingList<Trainee> GetTraineesList()

@@ -28,7 +28,7 @@ namespace DAL
         #region getLists
         BindingList<Tester> GetTestersList();
         BindingList<Trainee> GetTraineesList();
-        BindingList<Test> GetTestsList();
+        BindingList<Test> GetTestsList(Func<Test, bool> Predicate = null);
         Trainee GetTrainee(int id);
         Tester GetTester(int id);
         #endregion
