@@ -24,7 +24,6 @@ namespace Project01_7488_dotNet5779
     public partial class MainWindow : Window
     {
         private MyBL bl;
-        private List<Tester> _list;
 
         public MainWindow()
         {
