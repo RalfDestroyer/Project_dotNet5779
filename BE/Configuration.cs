@@ -9,7 +9,6 @@ namespace BE
     public class Configuration
     {
         public enum eTypeVechicle { PrivateCar, TwoWheeledVehicle, MediumTrack, HeavyTrack };
-        private const int _SUM_OF_eTypeVechicle = 4;
         public enum eSex { Male, Female };
         private const int _DAYS_IN_YEAR = 365;
         private const int _MIN_OLD_TESTER = 40;
@@ -29,7 +28,5 @@ namespace BE
         public static int MIN_DAYS_BETWEEN_TESTS => _MIN_DAYS_BETWEEN_TESTS;
 
         public static int MAX_TESTS_IN_WEEK => _MAX_TESTS_IN_WEEK;
-
-        public static int SUM_OF_eTypeVechicle => _SUM_OF_eTypeVechicle;
     }
 }
